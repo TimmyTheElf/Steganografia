@@ -40,7 +40,9 @@ namespace Steganografia
             openFileDialog1.Filter = "Bitmaps(*.bmp)|*.bmp";
             openFileDialog1.ShowDialog();
             imagePath = openFileDialog1.FileName;
-
+            if (imagePath=="") {
+                return;
+            }
             Bitmap bitmap = new Bitmap(imagePath);
             image = new Bitmap(bitmap);
             image = (Bitmap)image.Clone();

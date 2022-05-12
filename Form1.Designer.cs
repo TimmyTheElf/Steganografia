@@ -320,9 +320,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label3.Location = new System.Drawing.Point(12, 18);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(159, 17);
+            this.label3.Size = new System.Drawing.Size(173, 17);
             this.label3.TabIndex = 16;
-            this.label3.Text = "Bitmap to encode file in:";
+            this.label3.Text = "Bitmap to encode/decode:";
             // 
             // Form1
             // 
