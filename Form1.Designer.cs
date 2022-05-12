@@ -69,12 +69,15 @@
             // 
             this.OpenFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.OpenFileButton.Location = new System.Drawing.Point(12, 114);
+            this.OpenFileButton.BackColor = System.Drawing.Color.Turquoise;
+            this.OpenFileButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.OpenFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.OpenFileButton.Location = new System.Drawing.Point(12, 47);
             this.OpenFileButton.Name = "OpenFileButton";
             this.OpenFileButton.Size = new System.Drawing.Size(185, 38);
             this.OpenFileButton.TabIndex = 0;
             this.OpenFileButton.Text = "Open bmp file";
-            this.OpenFileButton.UseVisualStyleBackColor = true;
+            this.OpenFileButton.UseVisualStyleBackColor = false;
             this.OpenFileButton.Click += new System.EventHandler(this.OpenFileButton_Click);
             // 
             // IniitalImge
@@ -112,28 +115,35 @@
             // 
             // CipherButton
             // 
+            this.CipherButton.BackColor = System.Drawing.Color.Turquoise;
+            this.CipherButton.FlatAppearance.BorderSize = 0;
+            this.CipherButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.CipherButton.Location = new System.Drawing.Point(5, 215);
             this.CipherButton.Name = "CipherButton";
             this.CipherButton.Size = new System.Drawing.Size(83, 25);
             this.CipherButton.TabIndex = 5;
             this.CipherButton.Text = "Encode";
-            this.CipherButton.UseVisualStyleBackColor = true;
+            this.CipherButton.UseVisualStyleBackColor = false;
             this.CipherButton.Click += new System.EventHandler(this.CipherButton_Click);
             // 
             // DecipherButton
             // 
+            this.DecipherButton.BackColor = System.Drawing.Color.Turquoise;
+            this.DecipherButton.FlatAppearance.BorderSize = 0;
+            this.DecipherButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.DecipherButton.Location = new System.Drawing.Point(91, 215);
             this.DecipherButton.Margin = new System.Windows.Forms.Padding(2);
             this.DecipherButton.Name = "DecipherButton";
             this.DecipherButton.Size = new System.Drawing.Size(91, 25);
             this.DecipherButton.TabIndex = 6;
             this.DecipherButton.Text = "Decode";
-            this.DecipherButton.UseVisualStyleBackColor = true;
+            this.DecipherButton.UseVisualStyleBackColor = false;
             this.DecipherButton.Click += new System.EventHandler(this.DecipherButton_Click);
             // 
             // dostepneBajty
             // 
             this.dostepneBajty.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dostepneBajty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.dostepneBajty.Location = new System.Drawing.Point(5, 183);
             this.dostepneBajty.Name = "dostepneBajty";
             this.dostepneBajty.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -141,23 +151,25 @@
             this.dostepneBajty.TabIndex = 8;
             this.dostepneBajty.Text = "0 / 0 B";
             this.dostepneBajty.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.dostepneBajty.Click += new System.EventHandler(this.dostepneBajty_Click);
+            this.dostepneBajty.Click += new System.EventHandler(this.AvailableBites_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(156, 13);
+            this.label1.Size = new System.Drawing.Size(100, 17);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Number of bits to use in coding:";
+            this.label1.Text = "Number of bits";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label2.Location = new System.Drawing.Point(3, 135);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 13);
+            this.label2.Size = new System.Drawing.Size(101, 17);
             this.label2.TabIndex = 1;
             this.label2.Text = "File to encode:";
             // 
@@ -176,7 +188,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.CipherButton);
             this.panel1.Controls.Add(this.DecipherButton);
-            this.panel1.Location = new System.Drawing.Point(15, 186);
+            this.panel1.Location = new System.Drawing.Point(15, 119);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(188, 280);
             this.panel1.TabIndex = 14;
@@ -185,6 +197,7 @@
             // labelDecipheredFile
             // 
             this.labelDecipheredFile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labelDecipheredFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.labelDecipheredFile.Location = new System.Drawing.Point(5, 243);
             this.labelDecipheredFile.Name = "labelDecipheredFile";
             this.labelDecipheredFile.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -195,16 +208,20 @@
             // 
             // messagePathChooseButton
             // 
+            this.messagePathChooseButton.BackColor = System.Drawing.Color.Turquoise;
+            this.messagePathChooseButton.FlatAppearance.BorderSize = 0;
+            this.messagePathChooseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.messagePathChooseButton.Location = new System.Drawing.Point(5, 151);
             this.messagePathChooseButton.Name = "messagePathChooseButton";
             this.messagePathChooseButton.Size = new System.Drawing.Size(177, 29);
             this.messagePathChooseButton.TabIndex = 19;
             this.messagePathChooseButton.Text = "Open file";
-            this.messagePathChooseButton.UseVisualStyleBackColor = true;
-            this.messagePathChooseButton.Click += new System.EventHandler(this.messagePathChooseButton_Click);
+            this.messagePathChooseButton.UseVisualStyleBackColor = false;
+            this.messagePathChooseButton.Click += new System.EventHandler(this.MessagePathChooseButton_Click);
             // 
             // SliderBLabel
             // 
+            this.SliderBLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.SliderBLabel.Location = new System.Drawing.Point(135, 95);
             this.SliderBLabel.Name = "SliderBLabel";
             this.SliderBLabel.Size = new System.Drawing.Size(47, 30);
@@ -214,6 +231,7 @@
             // 
             // SliderGLabel
             // 
+            this.SliderGLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.SliderGLabel.Location = new System.Drawing.Point(135, 59);
             this.SliderGLabel.Name = "SliderGLabel";
             this.SliderGLabel.Size = new System.Drawing.Size(47, 30);
@@ -223,6 +241,7 @@
             // 
             // SliderRLabel
             // 
+            this.SliderRLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.SliderRLabel.Location = new System.Drawing.Point(135, 29);
             this.SliderRLabel.Name = "SliderRLabel";
             this.SliderRLabel.Size = new System.Drawing.Size(47, 30);
@@ -267,14 +286,15 @@
             this.flowLayoutPanel2.Controls.Add(this.label5);
             this.flowLayoutPanel2.Controls.Add(this.resultImage);
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(206, 41);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(209, 12);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1016, 550);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1016, 562);
             this.flowLayoutPanel2.TabIndex = 15;
             this.flowLayoutPanel2.Visible = false;
             // 
             // label4
             // 
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label4.Location = new System.Drawing.Point(3, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(102, 23);
@@ -283,6 +303,7 @@
             // 
             // label5
             // 
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label5.Location = new System.Drawing.Point(509, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(102, 23);
@@ -296,9 +317,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 85);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label3.Location = new System.Drawing.Point(12, 18);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 13);
+            this.label3.Size = new System.Drawing.Size(159, 17);
             this.label3.TabIndex = 16;
             this.label3.Text = "Bitmap to encode file in:";
             // 
@@ -307,7 +329,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1234, 741);
+            this.BackColor = System.Drawing.Color.Ivory;
+            this.ClientSize = new System.Drawing.Size(1234, 753);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.panel1);

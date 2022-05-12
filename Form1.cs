@@ -17,7 +17,7 @@ namespace Steganografia
     {
         private String imagePath;
         private String messagePath;
-        private const String KEY = "KLUCZ ";
+        private const String KEY = "KEY ";
         private const int zeroEndingBytes = 8;
 
         private int messageWidth = 0;
@@ -37,7 +37,7 @@ namespace Steganografia
 
         private void OpenFileButton_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "Bitmapy(*.bmp)|*.bmp";
+            openFileDialog1.Filter = "Bitmaps(*.bmp)|*.bmp";
             openFileDialog1.ShowDialog();
             imagePath = openFileDialog1.FileName;
 
@@ -48,7 +48,7 @@ namespace Steganografia
 
             IniitalImge.Image = image;
 
-            showUsedSpace();
+            ShowUsedSpace();
 
             panel1.Visible = true;
             flowLayoutPanel2.Visible = true;
@@ -56,7 +56,7 @@ namespace Steganografia
             resultImage.Image = null;
         }
 
-        private void showUsedSpace()
+        private void ShowUsedSpace()
         {
             if (messagePath != null) messageWidth = messageAndKeyToBits(messagePath).Length;
             else messageWidth = 0;
@@ -106,7 +106,7 @@ namespace Steganografia
         }
 
 
-        private Bitmap cipher()
+        private Bitmap Cipher()
         {
             int height = image.Height;
             int width = image.Width;
@@ -117,8 +117,8 @@ namespace Steganografia
 
             if (messageBits.Length + 12 > noiseLevelRGB.Sum() * height * width)
             {
-                if (MessageBox.Show("Czy zaszyfrować mimo to? Wiadomość zostanie ucięta do wymaganego poziomu.", 
-                        "Cała wiadomość nie zostanie zaszyfrowana.", 
+                if (MessageBox.Show("Are you sure want to proceed?", 
+                        "Not all data can be encrypted.", 
                         MessageBoxButtons.OKCancel, 
                         MessageBoxIcon.Warning, 
                         MessageBoxDefaultButton.Button1)
@@ -164,7 +164,7 @@ namespace Steganografia
 
         private void CipherButton_Click(object sender, EventArgs e)
         {
-            Bitmap cipheredImage = cipher();
+            Bitmap cipheredImage = Cipher();
             if (cipheredImage == null)
             {
                 return;
@@ -174,7 +174,7 @@ namespace Steganografia
             cipheredImage.Save(imagePath);
         }
 
-        private BitArray decipher()
+        private BitArray Decipher()
         {
             BitArray key = new BitArray(Encoding.UTF8.GetBytes(KEY));
 
@@ -182,8 +182,9 @@ namespace Steganografia
             int width = image.Width;
             int[] noiseLevelRGB = { 0, 0, 0};
             List<bool> bitList = new List<bool>();
-            int zeroCounter = 0;
+            int Counter = 0;
             int keyIndex = 0;
+            
             bool getExtention = false;
             List<bool> extentionBits = new List<bool>();
             for (int i = 0; i < height; i++)
@@ -194,7 +195,7 @@ namespace Steganografia
                     int[] rgb = { color.R, color.G, color.B };
                     for(int k = 0; k < 3; k++)
                     {
-                        if (i == 0 && j == 0) //Set decipher noise levels
+                        if (i == 0 && j == 0)
                         {
                             while ((rgb[k] & 1) == 0 && noiseLevelRGB[k] < 8)
                             {
@@ -202,7 +203,7 @@ namespace Steganografia
                                 rgb[k] >>= 1;
                             }
                         }
-                        else  //Decipher message
+                        else 
                         {
                             for(int l = 0; l < noiseLevelRGB[k]; l++)
                             {
@@ -211,41 +212,41 @@ namespace Steganografia
 
                                 if (keyIndex < key.Count)
                                 {
-                                    if (bit != key.Get(keyIndex)) return null; //bad key
+                                    if (bit != key.Get(keyIndex)) return null; 
                                     keyIndex++;
                                     if (keyIndex == key.Count) getExtention = true;
                                 } else if (getExtention) {
-                                    if (!bit) zeroCounter++;
-                                    else zeroCounter = 0;
+                                    if (!bit) Counter++;
+                                    else Counter = 0;
                                     extentionBits.Add(bit);
-                                    if (zeroCounter >= 8 && extentionBits.Count % 8 == 0) //end of extention
+                                    if (Counter >= zeroEndingBytes && extentionBits.Count % zeroEndingBytes == 0) 
                                     {
                                         getExtention = false;
-                                        byte[] extentionBytes = new byte[extentionBits.Count / 8 + 1];
+                                        byte[] extentionBytes = new byte[extentionBits.Count / zeroEndingBytes + 1];
                                         new BitArray(extentionBits.ToArray()).CopyTo(extentionBytes, 0);
                                         saveFileDialog1.Filter = "plik|*" + Encoding.UTF8.GetString(extentionBytes);
                                     }
                                 } else {
-                                    if (!bit) zeroCounter++;
-                                    else zeroCounter = 0;
+                                    if (!bit) Counter++;
+                                    else Counter = 0;
                                     bitList.Add(bit);
                                 }
 
-                                if (zeroCounter == 8 * zeroEndingBytes) break;
+                                if (Counter == zeroEndingBytes * zeroEndingBytes) break;
                             }
                         }
-                        if (zeroCounter == 8 * zeroEndingBytes) break;
+                        if (Counter == zeroEndingBytes * zeroEndingBytes) break;
                     }
                     if (noiseLevelRGB.Sum() == 0) return null;
-                    if (zeroCounter == 8  * zeroEndingBytes) break;
+                    if (Counter == zeroEndingBytes  * zeroEndingBytes) break;
                 }
-                if (zeroCounter == 8 * zeroEndingBytes) break;
+                if (Counter == zeroEndingBytes * zeroEndingBytes) break;
             }
 
             decipheredRGBnoiseLevels = noiseLevelRGB;
 
-            BitArray dataArray = new BitArray(bitList.Count - 8 * zeroEndingBytes);
-            for (int i = 0; i < bitList.Count - 8 * zeroEndingBytes; i++)
+            BitArray dataArray = new BitArray(bitList.Count - zeroEndingBytes * zeroEndingBytes);
+            for (int i = 0; i < bitList.Count - zeroEndingBytes * zeroEndingBytes; i++)
             {
                 dataArray.Set(i, bitList[i]);
             }
@@ -255,12 +256,12 @@ namespace Steganografia
 
         private void MessageText_TextChanged(object sender, EventArgs e)
         {
-            showUsedSpace();
+            ShowUsedSpace();
         }
 
         private void DecipherButton_Click(object sender, EventArgs e)
         {
-            BitArray fileBits = decipher();
+            BitArray fileBits = Decipher();
 
             if (fileBits != null)
             {
@@ -277,49 +278,49 @@ namespace Steganografia
                 lastDecipheredFileSizeBit = fileBytes.Length * 8;
                 lastDecipheredImageSpaceBit = image.Width * image.Height * (decipheredRGBnoiseLevels.Sum());
 
-                showUsedSpace(); 
+                ShowUsedSpace(); 
             }
             else
             {
-                MessageBox.Show("Nie znaleziono klucza.",
-                        "Nie rozszyfrowano wiadomości.",
+                MessageBox.Show("The key was not found.",
+                        "Message cannot be decoded.",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
             }
             
         }
 
-        private void dostepneBajty_Click(object sender, EventArgs e)
+        private void AvailableBites_Click(object sender, EventArgs e)
         {
             showUsedSpaceMode++;
             if (showUsedSpaceMode > 3) showUsedSpaceMode = 0;
 
-            showUsedSpace();
+            ShowUsedSpace();
         }
 
         private void NoiseLevelSliderR_ValueChanged(object sender, EventArgs e)
         {
             SliderRLabel.Text = "R: " + NoiseLevelSliderR.Value.ToString();
-            showUsedSpace();
+            ShowUsedSpace();
         }
 
         private void NoiseLevelSliderG_ValueChanged(object sender, EventArgs e)
         {
             SliderGLabel.Text = "G: " + NoiseLevelSliderG.Value.ToString();
-            showUsedSpace();
+            ShowUsedSpace();
         }
 
         private void NoiseLevelSliderB_ValueChanged(object sender, EventArgs e)
         {
             SliderBLabel.Text = "B: " + NoiseLevelSliderB.Value.ToString();
-            showUsedSpace();
+            ShowUsedSpace();
         }
 
-        private void messagePathChooseButton_Click(object sender, EventArgs e)
+        private void MessagePathChooseButton_Click(object sender, EventArgs e)
         {
             openFileDialog2.ShowDialog();
             messagePath = openFileDialog2.FileName;
-            showUsedSpace();
+            ShowUsedSpace();
         }
     }
 }
